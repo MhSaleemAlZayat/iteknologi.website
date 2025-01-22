@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Digital Rain</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pixelify+Sans:wght@400..700&display=swap');
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            color: green;
+            font-family: monospace;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            border: 2px solid green;
+            box-shadow: 0 0 10px green;
+            padding: 20px;
+            font-family: 'pixelify', monospace;
+            color: white;
+        }
+        .centered h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+        .centered h2 {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        .centered p {
+            font-size: 1em;
+            margin: 10px 0;
+        }
+        .montserrat-statment {
+            font-family: "Montserrat", serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+        }
+        /* h2 {
+            text-shadow: 0 0 10px green;
+        } */
+        .highlight {
+             text-shadow: 5px 5px 10px green, 2px 2px 5px white;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <div class="centered montserrat-statment">
+        <h1>Coming Soon</h1>
+        <h2><span class="highlight">iTeknologi</span> – Where software engineering meets innovation</h2>
+        <p>Human-centric solutions, real business value. Get ready to transform with us!</p>
+    </div>
+    <script>
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%+-/';
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 33);
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
